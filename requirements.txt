@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+redis
+rq
+sqlalchemy
+psycopg[binary]
+pydantic
+python-dotenv
+httpx
+google-generativeai
