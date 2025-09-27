@@ -4,3 +4,4 @@ from pydantic import BaseModel
 class PageBlock(BaseModel):
     type: str
     content: str
+

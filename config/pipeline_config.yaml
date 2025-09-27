@@ -1,0 +1,148 @@
+pipeline:
+  name: "PDF Translation Pipeline"
+  version: "2.0.0"
+  environment: ${ENVIRONMENT}
+
+# OpenRouter Configuration for Gemini
+translation:
+  primary_service:
+    provider: "openrouter"
+    api_key: ${OPENROUTER_API_KEY}
+    base_url: ${OPENROUTER_BASE_URL}
+    model: ${OPENROUTER_MODEL}
+    parameters:
+      temperature: 0.3
+      top_p: 0.9
+      max_tokens: 2048
+      timeout: 60
+    retry:
+      max_attempts: 3
+      backoff_factor: 2
+      max_delay: 30
+
+  fallback_service:
+    provider: "openrouter"
+    model: ${FALLBACK_MODEL}
+    enabled: true
+
+# Extraction Settings
+extraction:
+  margins:
+    enabled: true
+    method: "pdfplumber"
+    threshold: 10
+    enforce_strict: true
+
+  fonts:
+    extract_embedded: true
+    cache_fonts: true
+    fallback_chain: ["Arial", "Times New Roman", "Helvetica"]
+
+  layout:
+    model: "PubLayNet"
+    confidence_threshold: 0.8
+    column_detection: true
+    relationship_detection: true
+
+  formulas:
+    model: "LaTeX-OCR"
+    confidence_threshold: 0.85
+    preserve_as_image: false
+    extract_latex: true
+
+  tables:
+    model: "table-transformer"
+    confidence_threshold: 0.75
+    extract_structure: true
+
+  edge_cases:
+    detect_all: true
+    handlers:
+      rotated_text: true
+      vertical_text: true
+      footnotes: true
+      drop_caps: true
+      form_fields: true
+      annotations: true
+      hyperlinks: true
+
+# VLA Configuration
+vla:
+  enabled: true
+  trigger_threshold: 0.7
+  models:
+    primary:
+      name: "surya"
+      repo: "VikParuchuri/surya"
+      use_gpu: ${USE_GPU}
+    fallback:
+      name: "paddleocr"
+      use_angle_cls: true
+  complexity_thresholds:
+    simple: 0.3
+    moderate: 0.5
+    complex: 0.7
+    extreme: 0.9
+
+# Text Control
+text_control:
+  enabled: true
+  max_expansion_ratio: 1.1
+  min_compression_ratio: 0.7
+  adjustment_strategies:
+    - abbreviation
+    - spacing_adjustment
+    - font_size_reduction
+  retry_on_overflow: true
+  max_retries: 3
+
+# Reconstruction
+reconstruction:
+  preserve_margins: true
+  preserve_layout: true
+  embed_fonts: true
+  quality:
+    image_dpi: 300
+    compression: "lossless"
+    pdf_version: "1.7"
+
+# Processing Limits
+limits:
+  max_file_size: 524288000  # 500MB
+  max_pages: ${MAX_PAGES_PER_JOB}
+  timeout:
+    extraction: 300
+    translation: 600
+    reconstruction: 300
+
+# Cache Configuration
+cache:
+  redis:
+    enabled: true
+    ttl: ${CACHE_TTL}
+    max_size: ${MAX_CACHE_SIZE}
+
+  memory:
+    enabled: true
+    max_size: "1GB"
+    eviction_policy: "lru"
+
+  disk:
+    enabled: false
+    path: "/tmp/pdf_cache"
+    max_size: "50GB"
+
+# Monitoring
+monitoring:
+  enabled: ${METRICS_ENABLED}
+  port: ${METRICS_PORT}
+  collectors:
+    - process_metrics
+    - translation_quality
+    - processing_speed
+    - error_rates
+
+  alerts:
+    error_rate_threshold: 0.05
+    response_time_threshold: 30
+    queue_depth_threshold: 1000

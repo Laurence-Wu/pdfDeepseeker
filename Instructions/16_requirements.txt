@@ -28,6 +28,7 @@ opencv-contrib-python==4.8.1.78
 Pillow==10.1.0
 
 # Vision-Language Models
+git+https://github.com/VikParuchuri/surya.git@v0.4.0
 torch==2.1.2
 torchvision==0.16.2
 transformers==4.36.2
@@ -35,9 +36,10 @@ sentencepiece==0.1.99
 accelerate==0.25.0
 
 # Table Detection
-# Note: table-transformer is installed from GitHub
+git+https://github.com/microsoft/table-transformer.git@main
 
 # Formula Extraction
+git+https://github.com/lukas-blecher/LaTeX-OCR.git@v0.0.1
 latex2mathml==3.76.0
 
 # Layout Analysis
@@ -45,7 +47,7 @@ layoutparser==0.3.4
 detectron2==0.6
 
 # Watermark Detection
-# Note: invisible-watermark is installed from GitHub
+git+https://github.com/ShieldMnt/invisible-watermark.git@main
 
 # Translation (OpenRouter)
 aiohttp==3.9.1

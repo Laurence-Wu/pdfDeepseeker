@@ -10,3 +10,4 @@ if __name__ == "__main__":
     with Connection(conn):
         worker = Worker([Queue(name) for name in listen])
         worker.work()
+
