@@ -13,16 +13,26 @@ import asyncio
 from datetime import datetime
 import os
 from pathlib import Path
+import logging
 
 # Import core components
-from ..core import JobManager, TranslationRequest, JobResult
-from ..core.schemas.job import JobStatus
+from ..core.config import settings, ConfigurationError
+from ..core.job_manager import JobManager
+from ..core.schemas.job import JobStatus, TranslationRequest, JobResult
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, settings.log_level, logging.INFO),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="PDF Translation Pipeline API",
+    title=settings.pipeline_config.get("name", "PDF Translation Pipeline API"),
     description="High-precision PDF translation with layout preservation",
-    version="2.0.0"
+    version=settings.pipeline_config.get("version", "2.0.0"),
+    debug=settings.debug
 )
 
 # CORS configuration
@@ -34,18 +44,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configuration
-class Settings:
+# Application configuration
+class AppConfig:
     UPLOAD_DIR = Path("data/uploads")
     OUTPUT_DIR = Path("data/outputs")
-    MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB
+    MAX_FILE_SIZE = settings.get_limit("max_file_size") or (500 * 1024 * 1024)
     ALLOWED_EXTENSIONS = {".pdf"}
 
-settings = Settings()
+app_config = AppConfig()
 
 # Create directories
-settings.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-settings.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+app_config.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app_config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Initialize services
 job_manager = JobManager()
@@ -106,12 +116,15 @@ async def health_check():
     services = {
         "api": True,
         "job_manager": True,
-        "file_system": settings.UPLOAD_DIR.exists() and settings.OUTPUT_DIR.exists()
+        "file_system": app_config.UPLOAD_DIR.exists() and app_config.OUTPUT_DIR.exists(),
+        "redis": settings.redis.host is not None,
+        "database": settings.database.host is not None,
+        "openrouter": bool(settings.openrouter.api_key)
     }
 
     return HealthCheck(
         status="healthy" if all(services.values()) else "degraded",
-        version="2.0.0",
+        version=settings.pipeline_config.get("version", "2.0.0"),
         services=services,
         timestamp=datetime.utcnow()
     )
@@ -144,10 +157,10 @@ async def create_translation_job(
     contents = await file.read()
     file_size = len(contents)
 
-    if file_size > settings.MAX_FILE_SIZE:
+    if file_size > app_config.MAX_FILE_SIZE:
         raise HTTPException(
             status_code=413,
-            detail=f"File too large. Maximum size is {settings.MAX_FILE_SIZE // (1024*1024)}MB"
+            detail=f"File too large. Maximum size is {app_config.MAX_FILE_SIZE // (1024*1024)}MB"
         )
 
     # Create translation request
@@ -421,13 +434,22 @@ async def general_exception_handler(request, exc):
 @app.on_event("startup")
 async def startup_event():
     """Initialize services on startup"""
-    print("PDF Translation Pipeline API starting...")
-    # Initialize models, connections, etc.
+    logger.info(f"PDF Translation Pipeline API starting in {settings.environment} mode...")
+    
+    # Validate configuration
+    warnings = settings.validate()
+    for warning in warnings:
+        logger.warning(f"Configuration warning: {warning}")
+    
+    # Log configuration summary
+    logger.info(f"OpenRouter Model: {settings.openrouter.model}")
+    logger.info(f"Max Workers: {settings.performance.max_workers}")
+    logger.info(f"GPU Enabled: {settings.gpu.use_gpu}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown"""
-    print("PDF Translation Pipeline API shutting down...")
+    logger.info("PDF Translation Pipeline API shutting down...")
     # Close connections, save state, etc.
 
 if __name__ == "__main__":

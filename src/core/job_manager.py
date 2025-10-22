@@ -12,13 +12,13 @@ from pathlib import Path
 
 from .schemas.job import TranslationJob, JobStatus, JobResult, TranslationRequest
 from .extractors import (
-    MarginManager, LayoutManager, FontExtractor,
-    FormulaExtractor, TableExtractor, WatermarkExtractor
+    MarginManager, LayoutManager
 )
-from .deciders import ContentDetector, VLATrigger, EdgeCaseHandler
-from .xliff import XLIFFGenerator
-from .translation import GeminiClient
-from .reconstruction import PDFReconstructor
+# TODO: Import when modules are implemented
+# from .deciders import ContentDetector, VLATrigger, EdgeCaseHandler
+# from .xliff import XLIFFGenerator
+# from .translation import GeminiClient
+# from .reconstruction import PDFReconstructor
 
 logger = logging.getLogger(__name__)
 
@@ -36,18 +36,10 @@ class JobManager:
         # Initialize pipeline components
         self.margin_manager = MarginManager()
         self.layout_manager = LayoutManager()
-        self.font_extractor = FontExtractor()
-        self.formula_extractor = FormulaExtractor()
-        self.table_extractor = TableExtractor()
-        self.watermark_extractor = WatermarkExtractor()
-
-        self.content_detector = ContentDetector()
-        self.vla_trigger = VLATrigger()
-        self.edge_case_handler = EdgeCaseHandler()
-
-        self.xliff_generator = XLIFFGenerator()
-        self.gemini_client = GeminiClient()
-        self.pdf_reconstructor = PDFReconstructor()
+        # TODO: Add other components when implemented:
+        # - FontExtractor, FormulaExtractor, TableExtractor, WatermarkExtractor
+        # - ContentDetector, VLATrigger, EdgeCaseHandler
+        # - XLIFFGenerator, GeminiClient, PDFReconstructor
 
         # Configuration
         self.upload_dir = Path("data/uploads")

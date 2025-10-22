@@ -267,7 +267,7 @@ class LayoutManager:
         # Group columns by position and find consistent ones
         column_groups = {}
         for col in all_columns:
-            key = f"{col['left']".0f"}_{col['right']".0f"}"
+            key = f"{col['left']:.0f}_{col['right']:.0f}"
             if key not in column_groups:
                 column_groups[key] = []
             column_groups[key].append(col)

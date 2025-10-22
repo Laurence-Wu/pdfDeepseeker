@@ -1,0 +1,10 @@
+development:
+  debug: true
+  workers: 2
+  log_level: DEBUG
+  cache_aggressive: false
+  monitoring_detailed: false
+  hot_reload: true
+  mock_services:
+    enabled: true
+    services: ["translation"]

@@ -1,0 +1,16 @@
+production:
+  debug: false
+  workers: 10
+  log_level: WARNING
+  cache_aggressive: true
+  monitoring_detailed: true
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    burst_size: 20
+  
+  health_checks:
+    enabled: true
+    interval: 30
+    timeout: 5
+    failure_threshold: 3

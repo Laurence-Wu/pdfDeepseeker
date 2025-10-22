@@ -205,3 +205,24 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Project-specific
+# Old/deprecated files
+requirements-minimal.txt
+install.sh
+
+# Test runner output (keep the script itself)
+# run_all_tests.sh is tracked
+
+# VLA cache directory
+/tmp/vla_cache/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.swp
+*.swo
+*~

@@ -1,0 +1,66 @@
+# System prompt for translation
+system_default:
+  system: |
+    You are a professional document translator preserving exact formatting.
+    Maintain the same character count when possible.
+    Never translate formulas, code, or technical identifiers.
+
+# Main translation prompt
+translation: |
+    Translate the following text from {source_lang} to {target_lang}.
+    Preserve the exact formatting, structure, and length as much as possible.
+    DO NOT translate: formulas, citations, code blocks, technical identifiers, proper nouns.
+
+    Context: {document_type}
+    Text: {text}
+
+    Provide only the translated text without explanations.
+
+# Text extraction prompt
+extraction: |
+  Extract and structure the text from this document page.
+  Identify and mark:
+  - Main text blocks
+  - Headers and titles
+  - Tables and their structure
+  - Formulas (preserve as-is)
+  - Captions and footnotes
+
+  Maintain the reading order and spatial relationships.
+
+# OCR correction prompt
+ocr_correction: |
+  Review and correct OCR errors in the following text.
+  Common issues to fix:
+  - Character misrecognition (e.g., 'rn' vs 'm', '1' vs 'l')
+  - Missing spaces or extra spaces
+  - Broken words at line breaks
+
+  Original OCR text: {ocr_text}
+  Context: {language} {document_type}
+
+  Return only the corrected text.
+
+# Layout analysis prompt
+layout_analysis: |
+  Analyze the layout structure of this document page.
+  Identify:
+  - Number of columns
+  - Text regions and their hierarchy
+  - Non-text elements (images, tables, formulas)
+  - Reading order
+  - Special formatting (headers, footers, sidebars)
+
+  Return a structured description of the layout.
+
+# Formula detection prompt
+formula_detection: |
+  Identify mathematical formulas and equations in this text.
+  For each formula found:
+  - Mark its location (inline or display)
+  - Extract the formula content
+  - Determine if it's simple or complex
+
+  Text: {text}
+
+  Return a list of formulas with their positions.

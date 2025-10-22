@@ -1,0 +1,46 @@
+models:
+  surya:
+    type: "ocr"
+    enabled: true
+    repo: "VikParuchuri/surya"
+    version: "latest"
+    requirements:
+      gpu_memory: 4096
+      cpu_memory: 8192
+    settings:
+      batch_size: 8
+      confidence_threshold: 0.85
+
+  mplug_docowl:
+    type: "vla"
+    enabled: true
+    repo: "mPLUG/DocOwl"
+    version: "1.5"
+    requirements:
+      gpu_memory: 8192
+      cpu_memory: 16384
+    settings:
+      max_resolution: 4096
+      use_for_extreme_cases: true
+
+  layoutlm:
+    type: "layout"
+    enabled: true
+    repo: "microsoft/layoutlmv3-base"
+    version: "latest"
+    requirements:
+      gpu_memory: 2048
+      cpu_memory: 4096
+    settings:
+      max_sequence_length: 512
+
+  paddleocr:
+    type: "ocr"
+    enabled: false
+    repo: "PaddlePaddle/PaddleOCR"
+    version: "2.7.0"
+    settings:
+      use_angle_cls: true
+      lang: "ch"
+      det_db_thresh: 0.3
+      rec_batch_num: 6

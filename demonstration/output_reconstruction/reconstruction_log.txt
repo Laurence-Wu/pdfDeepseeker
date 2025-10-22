@@ -1,0 +1,139 @@
+[14:43:51] 
+================================================================================
+[14:43:51] PDF TRANSLATION & RECONSTRUCTION DEMONSTRATION
+[14:43:51] Instructions 00-11 Complete Workflow
+[14:43:51] ================================================================================
+[14:43:51] 
+Input PDF: demonstration/input/test_complex.pdf
+[14:43:51] Target Language: zh
+[14:43:51] Output Directory: demonstration/output_reconstruction
+[14:43:51] 
+[14:43:51] ================================================================================
+[14:43:51] STEP 1: CONTENT EXTRACTION
+[14:43:51] ================================================================================
+[14:43:51] 
+[14:43:51] Extracting fonts...
+[14:43:51]   ✓ Fonts extracted: 4
+[14:43:51] Extracting formulas...
+[14:48:40]   ✓ Formulas extracted: 3
+[14:48:40] Extracting tables...
+[14:48:40]   ✓ Tables extracted: 1
+[14:48:40] Extracting watermarks...
+[14:48:40]   ✓ Watermarks extracted: 2
+[14:48:40] 
+[14:48:40] ================================================================================
+[14:48:40] STEP 2: TRANSLATION
+[14:48:40] ================================================================================
+[14:48:40] 
+[14:48:40] Translating page 1...
+[14:48:40] Translating page 2...
+[14:48:47]   ✓ Block 1: preserved as-is
+[14:48:53]   ✓ Block 2: 0.85 confidence
+[14:49:00]   ✓ Block 3: 0.85 confidence
+[14:49:06]   ✓ Block 4: preserved as-is
+[14:49:13]   ✓ Block 5: 0.85 confidence
+[14:49:19]   ✓ Block 6: preserved as-is
+[14:49:26]   ✓ Block 7: 0.85 confidence
+[14:49:33]   ✓ Block 8: 0.85 confidence
+[14:49:39]   ✓ Block 9: 0.85 confidence
+[14:49:46]   ✓ Block 10: 0.85 confidence
+[14:49:52]   ✓ Block 11: 0.85 confidence
+[14:49:52] Translating page 3...
+[14:49:59]   ✓ Block 1: preserved as-is
+[14:50:05]   ✓ Block 2: 0.85 confidence
+[14:50:12]   ✓ Block 3: 0.85 confidence
+[14:50:18]   ✓ Block 4: 0.85 confidence
+[14:50:24]   ✓ Block 5: 0.85 confidence
+[14:50:31]   ✓ Block 6: 0.85 confidence
+[14:50:37]   ✓ Block 7: 0.85 confidence
+[14:50:44]   ✓ Block 8: 0.85 confidence
+[14:50:50]   ✓ Block 9: 0.85 confidence
+[14:50:57]   ✓ Block 10: 0.85 confidence
+[14:51:03]   ✓ Block 11: 0.85 confidence
+[14:51:03] Translating page 4...
+[14:51:10]   ✓ Block 1: preserved as-is
+[14:51:17]   ✓ Block 2: 0.85 confidence
+[14:51:23]   ✓ Block 3: preserved as-is
+[14:51:30]   ✓ Block 4: 0.85 confidence
+[14:51:36]   ✓ Block 5: preserved as-is
+[14:51:43]   ✓ Block 6: 0.85 confidence
+[14:51:50]   ✓ Block 7: 0.85 confidence
+[14:51:56]   ✓ Block 8: preserved as-is
+[14:51:56] Translating page 5...
+[14:52:03]   ✓ Block 1: preserved as-is
+[14:52:03] Translating page 6...
+[14:52:09]   ✓ Block 1: preserved as-is
+[14:52:09] 
+  ✓ Total translations: 32
+[14:52:09] 
+[14:52:09] Translating tables...
+[14:52:09]       Translating cell: "Parameter"
+[14:52:15]       Translating cell: "Value"
+[14:52:21]       Translating cell: "Unit"
+[14:52:27]       Translating cell: "Error Rate"
+[14:52:33]       Translating cell: "Coherence Time"
+[14:52:39]       Skipping cell: "150" (translatable=False, len=3)
+[14:52:39]       Skipping cell: "ms" (translatable=True, len=2)
+[14:52:39]       Skipping cell: "±5%" (translatable=True, len=3)
+[14:52:39]       Translating cell: "Gate Fidelity"
+[14:52:45]       Skipping cell: "99.9" (translatable=False, len=4)
+[14:52:45]       Skipping cell: "%" (translatable=False, len=1)
+[14:52:45]       Translating cell: "±0.1%"
+[14:52:51]       Translating cell: "Qubit Count"
+[14:52:57]       Skipping cell: "127" (translatable=False, len=3)
+[14:52:57]       Translating cell: "qubits"
+[14:53:03]       Skipping cell: "N/A" (translatable=True, len=3)
+[14:53:03]       Translating cell: "Temperature"
+[14:53:09]       Skipping cell: "15" (translatable=False, len=2)
+[14:53:09]       Skipping cell: "mK" (translatable=True, len=2)
+[14:53:09]       Translating cell: "±1mK"
+[14:53:15]       Translating cell: "Frequency"
+[14:53:21]       Skipping cell: "5.2" (translatable=False, len=3)
+[14:53:21]       Skipping cell: "GHz" (translatable=True, len=3)
+[14:53:21]       Translating cell: "±0.01GHz"
+[14:53:27]   ✓ Table 0: 24 cells translated
+[14:53:27] 
+[14:53:27] ================================================================================
+[14:53:27] STEP 3: XLIFF GENERATION
+[14:53:27] ================================================================================
+[14:53:27] 
+[14:53:27]   ✓ XLIFF file generated: demonstration/output_reconstruction/translation.xliff
+[14:53:27]   ✓ Translation units: 32
+[14:53:27]   ✓ XLIFF size: 699336 bytes
+[14:53:27] 
+[14:53:27] ================================================================================
+[14:53:27] STEP 4: XLIFF PARSING (Round-trip Test)
+[14:53:27] ================================================================================
+[14:53:27] 
+[14:53:27]   ✓ XLIFF parsed successfully
+[14:53:27]   ✓ Source language: en
+[14:53:27]   ✓ Target language: zh
+[14:53:27]   ✓ Files: 1
+[14:53:27]   ✓ Translation units: 32
+[14:53:27]   ✓ Skeleton data preserved
+[14:53:27]     - Fonts: 4
+[14:53:27]     - Formulas: 3
+[14:53:27]     - Tables: 1
+[14:53:27] 
+[14:53:27] ================================================================================
+[14:53:27] STEP 5: PDF RECONSTRUCTION
+[14:53:27] ================================================================================
+[14:53:27] 
+[14:53:28]   ✓ PDF reconstructed: demonstration/output_reconstruction/translated_document.pdf
+[14:53:28]   ✓ Output size: 2244988 bytes (2192.4 KB)
+[14:53:28]   ✓ Pages: 6
+[14:53:28]   ✓ First page text length: 0 chars
+[14:53:28] 
+[14:53:28] ================================================================================
+[14:53:28] STEP 6: VALIDATION
+[14:53:28] ================================================================================
+[14:53:28] 
+[14:53:28]   ✓ XLIFF validation: PASSED
+[14:53:28]   ✓ XLIFF file exists: demonstration/output_reconstruction/translation.xliff
+[14:53:28]   ✓ Reconstructed PDF exists: demonstration/output_reconstruction/translated_document.pdf
+[14:53:28] 
+[14:53:28] 
+================================================================================
+[14:53:28] DEMONSTRATION COMPLETED SUCCESSFULLY
+[14:53:28] Total Time: 577.62s
+[14:53:28] ================================================================================

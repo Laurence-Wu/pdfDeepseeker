@@ -1,0 +1,42 @@
+# Translation Pipeline Configuration
+
+# Text processing thresholds
+text_processing:
+  min_text_length: 3          # Minimum text length to process (chars)
+  translation_threshold: 3     # Text longer than this will be translated, shorter preserved as-is (chars)
+  preserve_short_text: false   # Whether to preserve short text without translation
+
+# Rate limiting
+rate_limiting:
+  delay_between_requests: 6.0  # Delay between translation requests (seconds)
+  max_retries: 5               # Maximum number of retries on failure
+  retry_wait_times: [15, 30, 45, 60, 90]  # Wait times for each retry (seconds)
+  exponential_backoff: true    # Whether to use exponential backoff
+
+# Translation settings
+translation:
+  default_document_type: "general"  # Default document type: general, technical, scientific
+  source_language: "en"
+  confidence_threshold: 0.0  # Minimum confidence to accept translation (0.0 = accept all, including fallbacks)
+
+# Table translation
+table_translation:
+  enabled: true
+  translate_headers: true
+  translate_numeric_cells: false
+  min_cell_length: 3
+
+# Rendering settings
+rendering:
+  bbox_padding:
+    horizontal: 0.5  # Horizontal padding as fraction of width (0.5 = 50%)
+    vertical: 0.3    # Vertical padding as fraction of height (0.3 = 30%)
+    left_offset: 0.25  # Left offset as fraction of horizontal padding
+    right_offset: 1.0  # Right offset as fraction of horizontal padding
+
+# Reconstruction settings
+reconstruction:
+  exclude_table_text: true  # Exclude text blocks overlapping with tables
+  preserve_formulas: true
+  preserve_watermarks: true
+  render_table_grid: true

@@ -8,6 +8,7 @@ from .font_extractor import FontExtractor
 from .formula_extractor import FormulaExtractor
 from .table_extractor import TableExtractor
 from .watermark_extractor import WatermarkExtractor
+from .text_recognizer import TextRecognizer
 
 __all__ = [
     'MarginManager',
@@ -16,5 +17,6 @@ __all__ = [
     'FontExtractor',
     'FormulaExtractor',
     'TableExtractor',
-    'WatermarkExtractor'
+    'WatermarkExtractor',
+    'TextRecognizer'
 ]
